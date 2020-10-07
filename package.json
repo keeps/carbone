@@ -1,10 +1,16 @@
 {
-  "name": "carbone",
+  "name": "@keepsolutions/carbone",
   "description": "Fast, Simple and Powerful report generator. Injects JSON and produces PDF, DOCX, XLSX, ODT, PPTX, ODS, ...!",
-  "version": "2.1.1",
-  "bin": "bin/carbone",
-  "main": "./lib",
-  "author": "David Grelaud",
+  "version": "2.1.1-1-KEEPS",
+  "bin": {
+    "carbone": "lib/carbone-cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keeps/carbone.git"
+  },
+  "main": "./lib/carbone-cli.js",
+  "author": "Fork by KEEP SOLUTIONS of the original work of David Grelaud",
   "license": "Apache-2.0",
   "homepage": "https://carbone.io",
   "keywords": [
@@ -25,9 +31,14 @@
   },
   "dependencies": {
     "debug": "=4.1.1",
+    "figlet": "^1.5.0",
     "moment": "=2.27.0",
     "timsort": "=0.3.0",
     "which": "=2.0.2",
+    "xml2js": "^0.4.23",
+    "xml2js-xpath": "^0.11.0",
+    "yargonaut": "^1.1.4",
+    "yargs": "^16.0.3",
     "yauzl": "=2.10.0",
     "yazl": "=2.5.1"
   },
@@ -37,5 +48,14 @@
   },
   "engines": {
     "node": ">= 10.15.0"
+  },
+  "bugs": {
+    "url": "https://github.com/keeps/primeng/issues"
+  },
+  "directories": {
+    "doc": "doc",
+    "example": "examples",
+    "lib": "lib",
+    "test": "test"
   }
 }
