@@ -1,3 +1,4 @@
+var get = require('lodash/get');
 
 /**
  * Flatten an array of String or Number
@@ -74,7 +75,7 @@ function arrayMap (d, objSeparator, attributeSeparator) {
       if (_isAttributeFilterActive === true) {
         for (var j = 3; j < arguments.length; j++) {
           var _att = arguments[j];
-          _flatObj.push(_obj[_att]);
+          _flatObj.push(get(_obj,_att));
         }
       }
       else if (_obj instanceof Object === false) {
