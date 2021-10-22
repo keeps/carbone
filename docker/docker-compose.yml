@@ -1,0 +1,12 @@
+version: '3'
+
+volumes:
+  carbone_data:
+
+services:
+  carbone:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - carbone_data
