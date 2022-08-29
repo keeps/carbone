@@ -1,5 +1,4 @@
 var get = require('lodash/get');
-
 /**
  * Flatten an array of String or Number
  *
@@ -19,7 +18,7 @@ var get = require('lodash/get');
  * @param  {String} separator   [optional] item separator (`,` by default)
  * @return {String}             computed result, or `d` if `d` is not an array
  */
-function arrayJoin (d, separator) {
+function arrayJoin(d, separator) {
   if (separator === undefined) {
     separator = ', ';
   }
@@ -63,12 +62,12 @@ function arrayJoin (d, separator) {
  * @param  {String} attributes           [optional] list of object's attributes to print
  * @return {String}                      the computed result, or `d` if `d` is not an array
  */
-function arrayMap (d, objSeparator, attributeSeparator) {
+function arrayMap(d, objSeparator, attributeSeparator) {
   if (objSeparator === undefined) {
-    objSeparator = ', ' ;
+    objSeparator = ', ';
   }
   if (attributeSeparator === undefined) {
-    attributeSeparator = ':' ;
+    attributeSeparator = ':';
   }
   var _isAttributeFilterActive = arguments.length > 3;
   var _res = [];
@@ -80,7 +79,7 @@ function arrayMap (d, objSeparator, attributeSeparator) {
       if (_isAttributeFilterActive === true) {
         for (var j = 3; j < arguments.length; j++) {
           var _att = arguments[j];
-          _flatObj.push(get(_obj,_att));
+          _flatObj.push(get(_obj, _att));
         }
       }
       else if (_obj instanceof Object === false) {
@@ -113,7 +112,7 @@ function arrayMap (d, objSeparator, attributeSeparator) {
  * @param   {String}  start   Number to start with (default: 1)
  * @return  {String}          Counter value
  */
-function count (d, loopId, start) {
+function count(d, loopId, start) {
   if (start === undefined) {
     start = 1;
   }
@@ -121,7 +120,7 @@ function count (d, loopId, start) {
 }
 
 module.exports = {
-  arrayJoin : arrayJoin,
-  arrayMap  : arrayMap,
-  count     : count
+  arrayJoin: arrayJoin,
+  arrayMap: arrayMap,
+  count: count
 };
