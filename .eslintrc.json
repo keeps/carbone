@@ -6,9 +6,6 @@
     "node"    : true,
     "mocha"   : true
   },
-  "parserOptions": {
-    "ecmaVersion": 8
-  },
   "plugins" : [],
   "extends": "eslint:recommended",
   "rules": {

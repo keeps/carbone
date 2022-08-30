@@ -1225,8 +1225,54 @@ describe('builder.buildXML', function () {
       done();
     });
   });
+  it('should accept direct access of an other array, with sub-objects, within a loop', function (done) {
+    var _xml = ''
+      + '<d>'
+      + '  <l>'
+      + '    <acc>{d[i].groups[i].label}</acc>'
+      + '    <sub>{d[i].direct[0].sub.id}</sub>'
+      + '  </l>'
+      + '  <l>'
+      + '    {d[i].groups[i+1]}'
+      + '  </l>'
+      + '  <l>'
+      + '    {d[i+1]}'
+      + '  </l>'
+      + '</d>'
+    ;
+    var _data = [
+      {
+        groups : [ { label : 10 }, {label : 11 } ],
+        direct : [ { sub : { id : 'aa' }} ]
+      },
+      {
+        groups : [ { label : 20 } ],
+        direct : [ { sub : { id : 'aa' }} ]
+      }
+    ];
+    builder.buildXML(_xml, _data, function (err, _xmlBuilt) {
+      helper.assert(_xmlBuilt, ''
+        + '<d>'
+        + '  <l>'
+        + '    <acc>10</acc>'
+        + '    <sub>aa</sub>'
+        + '  </l>'
+        + '  <l>'
+        + '    <acc>11</acc>'
+        + '    <sub>aa</sub>'
+        + '  </l>  '
+        + '  <l>'
+        + '    <acc>20</acc>'
+        + '    <sub>aa</sub>'
+        + '  </l>    '
+        + '</d>'
+      );
+      done();
+    });
+  });
+
   it('should not crash if the object null or undefined', function (done) {
-    var _xml = '<xml> <t_row> {d.cli-test.id} </t_row></xml>';
+    var _xml = '<xml> <t_row> {d.test.id} </t_row></xml>';
     var _data = {
       test : null
     };
@@ -1259,7 +1305,7 @@ describe('builder.buildXML', function () {
     });
   });
   it('should not crash if the object parent of an array is null or undefined', function (done) {
-    var _xml = '<xml> <t_row> {d.cli-test.subArray[i].id}  <b/> {d.cli-test.subArray[i].id} </t_row></xml>';
+    var _xml = '<xml> <t_row> {d.test.subArray[i].id}  <b/> {d.test.subArray[i].id} </t_row></xml>';
     var _data = {
       test : null
     };
@@ -1571,7 +1617,7 @@ describe('builder.buildXML', function () {
       ]
     };
     builder.buildXML(_xml, _data, function (err, _xmlBuilt) {
-      assert.equal(_xmlBuilt, '<xml><tr> cli-test </tr><tr> cli-test </tr><tr> cli-test </tr></xml>');
+      assert.equal(_xmlBuilt, '<xml><tr> test </tr><tr> test </tr><tr> test </tr></xml>');
       done();
     });
   });
@@ -1796,7 +1842,7 @@ describe('builder.buildXML', function () {
       ]
     };
     builder.buildXML(_xml, _data, function (err, _xmlBuilt) {
-      assert.equal(_xmlBuilt, '<xml><tr> cli-test </tr></xml>');
+      assert.equal(_xmlBuilt, '<xml><tr> test </tr></xml>');
       done();
     });
   });

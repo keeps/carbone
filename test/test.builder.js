@@ -340,54 +340,56 @@ describe('builder', function () {
       builder.sortXmlParts(_data);
       helper.assert(_data, _expected);
     });
-    /*
-    complex example, should we tets it?
-    [
-      {"pos": [0],                                 "str": "<xml>" },
-      {"pos": [5, "david",  0, 5],                 "str": "<t_row>"},
-      {"pos": [5, "david",  0, 38],                "str": "</t_row>"},
-      {"pos": [5, "david",  0, 12, "B", 0, 16 ],   "str": "B"},
-      {"pos": [5, "david",  0, 12, "B", 0, 12 ],   "str": "<td>"},
-      {"pos": [5, "david",  0, 12, "B", 0, 21 ],   "str": "</td>"},
-      {"pos": [5, "david",  0, 12, "A", 1, 16 ],   "str": "A"},
-      {"pos": [5, "david",  0, 12, "A", 1, 12 ],   "str": "<td>"},
-      {"pos": [5, "david",  0, 12, "A", 1, 21 ],   "str": "</td>"},
-      {"pos": [5, "bob",  1, 5 ],                  "str": "<t_row>"},
-      {"pos": [5, "bob",  1, 38 ],                 "str": "</t_row>"},
-      {"pos": [5, "bob",  1, 12, "D", 0, 16 ],     "str": "D"},
-      {"pos": [5, "bob",  1, 12, "D", 0, 12 ],     "str": "<td>"},
-      {"pos": [5, "bob",  1, 12, "D", 0, 21 ],     "str": "</td>"},
-      {"pos": [5, "bob",  1, 12, "C", 1, 16 ],     "str": "C"},
-      {"pos": [5, "bob",  1, 12, "C", 1, 12 ],     "str": "<td>"},
-      {"pos": [5, "bob",  1, 12, "C", 1, 21 ],     "str": "</td>"},
-      {"pos": [5, "bob",  1, 12, "E", 2, 16],      "str": "E"},
-      {"pos": [5, "bob",  1, 12, "E", 2, 12],      "str": "<td>"},
-      {"pos": [5, "bob",  1, 12, "E", 2, 21 ],     "str": "</td>"},
-      {"pos": [39],                                "str": "</xml>"}
-    ]
-    [
-      {"pos": [0],                                 "str": "<xml>" },
-      {"pos": [5, "david",  0, 5],                 "str": "<t_row>"},
-      {"pos": [5, "david",  0, 12, "A", 1, 12 ],   "str": "<td>"},
-      {"pos": [5, "david",  0, 12, "A", 1, 16 ],   "str": "A"},
-      {"pos": [5, "david",  0, 12, "A", 1, 21 ],   "str": "</td>"},
-      {"pos": [5, "david",  0, 12, "B", 0, 12 ],   "str": "<td>"},
-      {"pos": [5, "david",  0, 12, "B", 0, 16 ],   "str": "B"},
-      {"pos": [5, "david",  0, 12, "B", 0, 21 ],   "str": "</td>"},
-      {"pos": [5, "david",  0, 38],                "str": "</t_row>"},
-      {"pos": [5, "bob",  1, 5 ],                  "str": "<t_row>"},
-      {"pos": [5, "bob",  1, 12, "C", 1, 12 ],     "str": "<td>"},
-      {"pos": [5, "bob",  1, 12, "C", 1, 16 ],     "str": "C"},
-      {"pos": [5, "bob",  1, 12, "C", 1, 21 ],     "str": "</td>"},
-      {"pos": [5, "bob",  1, 12, "D", 0, 12 ],     "str": "<td>"},
-      {"pos": [5, "bob",  1, 12, "D", 0, 16 ],     "str": "D"},
-      {"pos": [5, "bob",  1, 12, "D", 0, 21 ],     "str": "</td>"},
-      {"pos": [5, "bob",  1, 12, "E", 2, 12 ],     "str": "<td>"},
-      {"pos": [5, "bob",  1, 12, "E", 2, 16 ],     "str": "E"},
-      {"pos": [5, "bob",  1, 12, "E", 2, 21 ],     "str": "</td>"},
-      {"pos": [5, "bob",  1, 38 ],                 "str": "</t_row>"},
-      {"pos": [39],                                "str": "</xml>"}
-    ]*/
+    it('should sort complex datasets', function () {
+      var _data     =     [
+        {pos : [0                                 ], str : '<xml>' },
+        {pos : [5, 'david',  0, 5                 ], str : '<t_row>'},
+        {pos : [5, 'david',  0, 38                ], str : '</t_row>'},
+        {pos : [5, 'david',  0, 12, 'B', 0, 16    ], str : 'B'},
+        {pos : [5, 'david',  0, 12, 'B', 0, 12    ], str : '<td>'},
+        {pos : [5, 'david',  0, 12, 'B', 0, 21    ], str : '</td>'},
+        {pos : [5, 'david',  0, 12, 'A', 1, 16    ], str : 'A'},
+        {pos : [5, 'david',  0, 12, 'A', 1, 12    ], str : '<td>'},
+        {pos : [5, 'david',  0, 12, 'A', 1, 21    ], str : '</td>'},
+        {pos : [5, 'bob',  1, 5                   ], str : '<t_row>'},
+        {pos : [5, 'bob',  1, 38                  ], str : '</t_row>'},
+        {pos : [5, 'bob',  1, 12, 'D', 0, 16      ], str : 'D'},
+        {pos : [5, 'bob',  1, 12, 'D', 0, 12      ], str : '<td>'},
+        {pos : [5, 'bob',  1, 12, 'D', 0, 21      ], str : '</td>'},
+        {pos : [5, 'bob',  1, 12, 'C', 1, 16      ], str : 'C'},
+        {pos : [5, 'bob',  1, 12, 'C', 1, 12      ], str : '<td>'},
+        {pos : [5, 'bob',  1, 12, 'C', 1, 21      ], str : '</td>'},
+        {pos : [5, 'bob',  1, 12, 'E', 2, 16      ], str : 'E'},
+        {pos : [5, 'bob',  1, 12, 'E', 2, 12      ], str : '<td>'},
+        {pos : [5, 'bob',  1, 12, 'E', 2, 21      ], str : '</td>'},
+        {pos : [39                                ], str : '</xml>'}
+      ];
+      var _expected = [
+        {pos : [0                              ], str : '<xml>' },
+        {pos : [5, 'bob'  ,  1, 5              ], str : '<t_row>'},
+        {pos : [5, 'bob'  ,  1, 12, 'C', 1, 12 ], str : '<td>'},
+        {pos : [5, 'bob'  ,  1, 12, 'C', 1, 16 ], str : 'C'},
+        {pos : [5, 'bob'  ,  1, 12, 'C', 1, 21 ], str : '</td>'},
+        {pos : [5, 'bob'  ,  1, 12, 'D', 0, 12 ], str : '<td>'},
+        {pos : [5, 'bob'  ,  1, 12, 'D', 0, 16 ], str : 'D'},
+        {pos : [5, 'bob'  ,  1, 12, 'D', 0, 21 ], str : '</td>'},
+        {pos : [5, 'bob'  ,  1, 12, 'E', 2, 12 ], str : '<td>'},
+        {pos : [5, 'bob'  ,  1, 12, 'E', 2, 16 ], str : 'E'},
+        {pos : [5, 'bob'  ,  1, 12, 'E', 2, 21 ], str : '</td>'},
+        {pos : [5, 'bob'  ,  1, 38             ], str : '</t_row>'},
+        {pos : [5, 'david',  0, 5              ], str : '<t_row>'},
+        {pos : [5, 'david',  0, 12, 'A', 1, 12 ], str : '<td>'},
+        {pos : [5, 'david',  0, 12, 'A', 1, 16 ], str : 'A'},
+        {pos : [5, 'david',  0, 12, 'A', 1, 21 ], str : '</td>'},
+        {pos : [5, 'david',  0, 12, 'B', 0, 12 ], str : '<td>'},
+        {pos : [5, 'david',  0, 12, 'B', 0, 16 ], str : 'B'},
+        {pos : [5, 'david',  0, 12, 'B', 0, 21 ], str : '</td>'},
+        {pos : [5, 'david',  0, 38             ], str : '</t_row>'},
+        {pos : [39                             ], str : '</xml>'}
+      ];
+      builder.sortXmlParts(_data);
+      helper.assert(_data, _expected);
+    });
   });
   describe('forEachArrayExit call a function for each array we are leaving', function () {
     it('should never call the callback if _currentlyVisitedArrays is empty', function () {
@@ -1049,7 +1051,7 @@ describe('builder', function () {
     });
 
 
-    // @see cli-test line 822 in cli-test.builder.buildXML.js that where we got our _desc data
+    // @see test line 822 in test.builder.buildXML.js that where we got our _desc data
     it('when the template is not using i+1 kind of iterator ( but using filters ), xmlpart who are filtered out should not be added to the xmlParts array ( array to be sorted later ) except when no data fullfill the condition. This will help getting better performance result for this kind of template', function () {
       var _desc = {
         staticData : {

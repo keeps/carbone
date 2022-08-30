@@ -1,4 +1,5 @@
 var get = require('lodash/get');
+
 /**
  * Flatten an array of String or Number
  *

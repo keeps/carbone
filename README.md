@@ -34,6 +34,10 @@
 
 README language: 🇨🇳 [简体中文](./doc/README.zh-cn.md), 🇺🇸 [English](README.md)
 
+### NEWS ⚡️ 
+
+Some people ask us if the community edition is still maintained. Yes, of course! Lately we have prioritized our development for the Enterprise Edition. We have made a lot of code refactoring in Carbone v4. And we need some time to change the method to update the community edition. It will be done this summer 2022. Feel free to contact us on the chat if you need further information on https://carbone.io/ 
+
 ## Table of content
 
 <!-- MarkdownTOC -->

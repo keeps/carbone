@@ -219,7 +219,7 @@ describe('Carbone', function () {
       carbone.reset();
     });
     it('should save the template in the folder "templatePath"', function (done) {
-      var _filePath = path.resolve('./cli-test/datasets/test_word_render_2003_XML.xml');
+      var _filePath = path.resolve('./test/datasets/test_word_render_2003_XML.xml');
       var _fileContent = fs.readFileSync(_filePath, 'utf8');
       var _fileId = '1.xml';
       carbone.addTemplate(_fileId, _fileContent, function (err) {
@@ -232,7 +232,7 @@ describe('Carbone', function () {
     it('should overwrite existing template and should work if data is a buffer', function (done) {
       var _fileId = '2.txt';
       fs.writeFileSync(path.join(_templatePath, _fileId), 'bla');
-      var _filePath = path.resolve('./cli-test/datasets/test_word_render_2003_XML.xml');
+      var _filePath = path.resolve('./test/datasets/test_word_render_2003_XML.xml');
       var _fileContent = fs.readFileSync(_filePath);
       carbone.addTemplate(_fileId, _fileContent, function (err) {
         helper.assert(err, null);
@@ -309,7 +309,7 @@ describe('Carbone', function () {
       };
       carbone.renderXML('<xml>{d.param.new-param.value}</xml>', data, function (err, result) {
         helper.assert(err+'', 'null');
-        helper.assert(result, '<xml>cli-test</xml>');
+        helper.assert(result, '<xml>test</xml>');
         done();
       });
     });
@@ -323,7 +323,7 @@ describe('Carbone', function () {
       };
       carbone.renderXML('<xml>{d.param.new-param-s-t-u-popo.value}</xml>', data, function (err, result) {
         helper.assert(err+'', 'null');
-        helper.assert(result, '<xml>cli-test</xml>');
+        helper.assert(result, '<xml>test</xml>');
         done();
       });
     });
@@ -333,7 +333,7 @@ describe('Carbone', function () {
       };
       carbone.renderXML('<xml>{d.param}</xml>', data, function (err, result) {
         helper.assert(err+'', 'null');
-        helper.assert(result, '<xml>cli-test,bla</xml>');
+        helper.assert(result, '<xml>test,bla</xml>');
         done();
       });
     });
@@ -576,6 +576,14 @@ describe('Carbone', function () {
       carbone.renderXML('{c.now}', {}, { complement : {now : 'aa'} }, function (err, result) {
         helper.assert(err+'', 'null');
         helper.assert(result, 'aa');
+        done();
+      });
+    });
+    it('should return the current timestamp in UTC with c.now even if complement is null', function (done) {
+      carbone.renderXML('{c.now}', {}, { complement : null }, function (err, result) {
+        helper.assert(err+'', 'null');
+        var _parseDate = new Date(result);
+        helper.assert(((Date.now()/1000) - _parseDate.getTime()) < 1, true) ;
         done();
       });
     });
@@ -1360,7 +1368,7 @@ describe('Carbone', function () {
       });
     });
 
-    describe('security cli-test', function () {
+    describe('security test', function () {
       it('cannot inject JS using XML', function (done) {
         var data = {
           param : 3,
@@ -1964,7 +1972,7 @@ describe('Carbone', function () {
         });
       });
       it('should remove every piece of string without breaking XML, and accept dynamic variables', function (done) {
-        var _xml = '<xml><a>x{d.cli-test.other.id:ifEQ(true):and(..isDataHidden):ifEQ(0):showBegin} hey </a> <br/> cli-test <br/><b> whahou {d.cli-test.other.id:ifEQ(true):and(..isDataHidden):ifEQ(0):showEnd}y</b></xml>';
+        var _xml = '<xml><a>x{d.test.other.id:ifEQ(true):and(..isDataHidden):ifEQ(0):showBegin} hey </a> <br/> test <br/><b> whahou {d.test.other.id:ifEQ(true):and(..isDataHidden):ifEQ(0):showEnd}y</b></xml>';
         var _data = {
           test : {
             other : {
@@ -1975,7 +1983,7 @@ describe('Carbone', function () {
         };
         carbone.renderXML(_xml, _data, function (err, _xmlBuilt) {
           assert.equal(err+'', 'null');
-          assert.equal(_xmlBuilt, '<xml><a>x hey </a> <br/> cli-test <br/><b> whahou y</b></xml>');
+          assert.equal(_xmlBuilt, '<xml><a>x hey </a> <br/> test <br/><b> whahou y</b></xml>');
           _data.test.isDataHidden = 1;
           carbone.renderXML(_xml, _data, function (err, _xmlBuilt) {
             assert.equal(err+'', 'null');
@@ -1985,7 +1993,7 @@ describe('Carbone', function () {
         });
       });
       it('should remove all surrounded XML if there are no characters before/after conditional begin/end', function (done) {
-        var _xml = '<xml><a>{d.cli-test.other.id:ifEQ(true):and(..isDataHidden):ifEQ(0):showBegin} hey </a> <br/> cli-test <br/><b> whahou {d.cli-test.other.id:ifEQ(true):and(..isDataHidden):ifEQ(0):showEnd}</b></xml>';
+        var _xml = '<xml><a>{d.test.other.id:ifEQ(true):and(..isDataHidden):ifEQ(0):showBegin} hey </a> <br/> test <br/><b> whahou {d.test.other.id:ifEQ(true):and(..isDataHidden):ifEQ(0):showEnd}</b></xml>';
         var _data = {
           test : {
             other : {
@@ -1996,7 +2004,7 @@ describe('Carbone', function () {
         };
         carbone.renderXML(_xml, _data, function (err, _xmlBuilt) {
           assert.equal(err+'', 'null');
-          assert.equal(_xmlBuilt, '<xml><a> hey </a> <br/> cli-test <br/><b> whahou </b></xml>');
+          assert.equal(_xmlBuilt, '<xml><a> hey </a> <br/> test <br/><b> whahou </b></xml>');
           _data.test.isDataHidden = 1;
           carbone.renderXML(_xml, _data, function (err, _xmlBuilt) {
             assert.equal(err+'', 'null');
@@ -2427,7 +2435,7 @@ describe('Carbone', function () {
       it('should remove every possible parts in XML and accept complex conditions', function (done) {
         var _xml = ''
           + '<a>'
-          + '  <b>b{d.cli-test.isShown:ifEQ(</b>'
+          + '  <b>b{d.test.isShown:ifEQ(</b>'
           + '  <c>1</c>'
           + '  <d>):</d>'
           + '  <e>and(.text):ifEQ(</e>'
@@ -2437,7 +2445,7 @@ describe('Carbone', function () {
           + '</a>'
           + '<i>Z</i>'
           + '<j>'
-          + '  <k>{d.cli-test.isShown:show</k>'
+          + '  <k>{d.test.isShown:show</k>'
           + '  <l>End</l>'
           + '  <m>}m</m>'
           + '</j>';
@@ -2462,7 +2470,7 @@ describe('Carbone', function () {
         var _xml = ''
           + '<xml>'
           + '<a>'
-          +   '<b>{d.cli-test.isShown:ifEQ(</b>'
+          +   '<b>{d.test.isShown:ifEQ(</b>'
           + '  <c>1</c>'
           + '  <d>):</d>'
           + '  <e>and(.text):ifEQ(</e>'
@@ -2472,7 +2480,7 @@ describe('Carbone', function () {
           + '</a>'
           + '<i>Z</i>'
           + '<j>'
-          + '  <k>{d.cli-test.isShown:show</k>'
+          + '  <k>{d.test.isShown:show</k>'
           + '  <l>End</l>'
           + '  <m>}</m>'
           + '</j>'
@@ -2497,11 +2505,11 @@ describe('Carbone', function () {
       it('should hide XML part if values are undefined', function (done) {
         var _xml = ''
           + '<a>'
-          + '  <b>x{d.cli-test.isShown:ifEQ(1):and(.text):ifEQ(aaa):showBegin}</b>'
+          + '  <b>x{d.test.isShown:ifEQ(1):and(.text):ifEQ(aaa):showBegin}</b>'
           + '</a>'
           + '<i>Z</i>'
           + '<j>'
-          + '  <k>{d.cli-test.isShown:showEnd}m</k>'
+          + '  <k>{d.test.isShown:showEnd}m</k>'
           + '</j>';
         var _data = {};
         carbone.renderXML(_xml, _data, function (err, _xmlBuilt) {
@@ -2513,11 +2521,11 @@ describe('Carbone', function () {
       it('should hide XML part if values are undefined and remove surrounded XML if possible', function (done) {
         var _xml = ''
           + '<a>'
-          + 'z<b>{d.cli-test.isShown:ifEQ(1):and(.text):ifEQ(aaa):showBegin}</b>'
+          + 'z<b>{d.test.isShown:ifEQ(1):and(.text):ifEQ(aaa):showBegin}</b>'
           + '</a>'
           + '<i>Z</i>'
           + '<j>'
-          + '  <k>{d.cli-test.isShown:showEnd}</k>'
+          + '  <k>{d.test.isShown:showEnd}</k>'
           + '</j>';
         var _data = {};
         carbone.renderXML(_xml, _data, function (err, _xmlBuilt) {
@@ -2532,7 +2540,7 @@ describe('Carbone', function () {
 
   describe('render', function () {
     before(function () {
-      var _templatePath = path.resolve('./cli-test/datasets');
+      var _templatePath = path.resolve('./test/datasets');
       carbone.set({templatePath : _templatePath});
       helper.rmDirRecursive(testPath);
     });
@@ -2614,7 +2622,7 @@ describe('Carbone', function () {
       };
       var opt = {
         renderPrefix : 'prefix',
-        reportName   : '{d.field1}cli-test',
+        reportName   : '{d.field1}test',
         convertTo    : ' PDF  '
       };
       carbone.render('test_word_render_A.docx', data, opt, function (err, resultFilePath) {
@@ -2721,7 +2729,7 @@ describe('Carbone', function () {
       });
     });
     it('should accept a second data object with the marker {c.}', function (done) {
-      path.resolve('./cli-test/datasets/test_word_render_2003_XML.xml');
+      path.resolve('./test/datasets/test_word_render_2003_XML.xml');
       var _data = {
         field1 : 'field_1',
         field2 : 'field_2'
@@ -2745,7 +2753,7 @@ describe('Carbone', function () {
       });
     });
     it('(zipped file) should accept a second data object with the marker {c.}', function (done) {
-      path.resolve('./cli-test/datasets/test_word_render_A.docx');
+      path.resolve('./test/datasets/test_word_render_A.docx');
       var _data = {
         field1 : 'field_1',
         field2 : 'field_2'
@@ -3057,7 +3065,7 @@ describe('Carbone', function () {
     });
 
     it('should render a template (docx), generate to PDF and give output', function (done) {
-      var _pdfResultPath = path.resolve('./cli-test/datasets/test_word_render_A.pdf');
+      var _pdfResultPath = path.resolve('./test/datasets/test_word_render_A.pdf');
       var data = {
         field1 : 'field_1',
         field2 : 'field_2',
@@ -3074,7 +3082,7 @@ describe('Carbone', function () {
       });
     });
     it('should render a template (docx), generate to PDF and give a path instead of a buffer if renderPrefix is defined', function (done) {
-      var _pdfExpectedPath = path.resolve('./cli-test/datasets/test_word_render_A.pdf');
+      var _pdfExpectedPath = path.resolve('./test/datasets/test_word_render_A.pdf');
       var data = {
         field1 : 'field_1',
         field2 : 'field_2',
@@ -3095,12 +3103,12 @@ describe('Carbone', function () {
     });
     it('should not crash if datas contain XML-incompatible control code', function (done) {
       // eslint-disable-next-line no-unused-vars
-      var _pdfResultPath = path.resolve('./cli-test/datasets/test_word_render_A.pdf');
+      var _pdfResultPath = path.resolve('./test/datasets/test_word_render_A.pdf');
       var data = {
         field1 : '\u0000\u0001\u0002\u0003\u0004\u0005\u0006\u0007\u0008\u000b\u000c\u000e\u000f\u0010\u0011\u0012\u0013\u0014\u0015\u0016\u0017\u0018\u0019\u001a\u001b\u001c\u001d\u001e\u001f',
         field2 : 'field_2'
       };
-      carbone.render(path.resolve('./cli-test/datasets/test_word_render_A.docx'), data, {convertTo : 'pdf'}, function (err, result) {
+      carbone.render(path.resolve('./test/datasets/test_word_render_A.docx'), data, {convertTo : 'pdf'}, function (err, result) {
         assert.equal(err, null);
         assert.equal(result.slice(0, 4).toString(), '%PDF');
         done();
@@ -3116,8 +3124,8 @@ describe('Carbone', function () {
       }];
       carbone.render('test_spreadsheet.ods', data, {convertTo : 'xls'}, function (err) {
         helper.assert(err, null);
-        // fs.writeFileSync('cli-test.xls', result);
-        // TODO TODO TODO TODO TODO TODO TODO TODO : cli-test the content of the xls
+        // fs.writeFileSync('test.xls', result);
+        // TODO TODO TODO TODO TODO TODO TODO TODO : test the content of the xls
         done();
       });
     });
@@ -3179,7 +3187,7 @@ describe('Carbone', function () {
       carbone.set({templatePath : _templatePath});
     });
     it('should convert a document', function (done) {
-      var _pdfResultPath = path.resolve('./cli-test/datasets/test_word_render_A.pdf');
+      var _pdfResultPath = path.resolve('./test/datasets/test_word_render_A.pdf');
       fs.readFile(path.join(_templatePath, 'test_word_render_A.docx'), function (err, buffer) {
         helper.assert(err+'', 'null');
         carbone.convert(buffer, {convertTo : 'pdf', extension : 'docx'}, function (err, result) {

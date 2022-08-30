@@ -1,3 +1,23 @@
+### v3.4.0
+  - Remove compatibility with NodeJS 10.x. V8 uses timsort since NodeJS 11. So we can remove timsort dependency. NodeJS 12+ required.
+  - Bump DayJS to 1.10.7
+  - Bump debug to 4.3.2
+
+### v3.3.0
+  - Accept `null` for the attribute `complement` in `options`
+
+### v3.2.7
+  - Release July 21th 2021
+  - Fix corrupted document when accessing a sub-object in an array `{d.surrounding[i].subArray[0].subObject.id}`, within a surrounding loop
+
+### v3.2.6
+  - Release June 15th 2021 [EE only]
+
+### v3.2.5
+  - Release June 10th 2021 [EE only]
+
+### v3.2.4
+  - Release May 25th 2021 [EE only]
 
 ### v3.2.3
   - Release May 21th 2021

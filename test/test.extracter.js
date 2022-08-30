@@ -2637,7 +2637,7 @@ describe('extracter', function () {
       var _data = {
         staticData  : {},
         dynamicData : {
-          d       : {name : ''       , type : 'array'  , parent : ''        , xmlParts : [], depth : 500},
+          d       : {name : ''       , type : 'array'  , parent : ''        , xmlParts : [], depth : 0},
           menu1   : {name : 'menu'   , type : 'array'  , parent : 'd'       , xmlParts : [], depth : 4},
           menu2   : {name : 'menu'   , type : 'array'  , parent : 'menu1'   , xmlParts : [], depth : 2},
           menu3   : {name : 'menu'   , type : 'array'  , parent : 'menu2'   , xmlParts : [], depth : 3},
@@ -2792,7 +2792,7 @@ describe('extracter', function () {
     });
     it('should sort correctly nested arrays which start at the same position in xml.\
       This happens when two arrays are incremented in the same time (d.tab[i+1].subtab[i+1])', function () {
-      // This cli-test is sensible.
+      // This test is sensible.
       var _data = [
         { obj : '_rootdother'           , pos : 90                  },
         { obj : '_rootdfamiliesproducts', pos : 50, array : 'start' }, // sub array
