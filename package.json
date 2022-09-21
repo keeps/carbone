@@ -1,7 +1,7 @@
 {
   "name": "@keepsolutions/carbone",
   "description": "Fast, Simple and Powerful report generator. Injects JSON and produces PDF, DOCX, XLSX, ODT, PPTX, ODS, ...!",
-  "version": "3.4.0-3",
+  "version": "3.4.0-4",
   "bin": "bin/carbone",
   "repository": {
     "type": "git",
