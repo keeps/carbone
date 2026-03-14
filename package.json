@@ -41,7 +41,7 @@
     "xml2js-xpath": "^0.11.0",
     "yargonaut": "^1.1.4",
     "yargs": "^16.1.0",
-    "yauzl": "=2.10.0",
+    "yauzl": "=3.2.1",
     "yazl": "=2.5.1"
   },
   "devDependencies": {
